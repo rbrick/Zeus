@@ -1,5 +1,6 @@
 package me.rbrick.zeus;
 
+import me.rbrick.zeus.registers.bukkit.BukkitRegistrar;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginIdentifiableCommand;
@@ -8,9 +9,6 @@ import org.bukkit.plugin.Plugin;
 import java.lang.reflect.Method;
 import java.util.List;
 
-/**
- * This code is copyrighted by rbrick and the BreakMC Network.
- */
 public class ZeusCommand extends Command implements PluginIdentifiableCommand  {
 
     Plugin owningPlugin;
@@ -23,7 +21,7 @@ public class ZeusCommand extends Command implements PluginIdentifiableCommand  {
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
             try {
-                Method m = Zeus.getRegisteredCommands().get(this.getName());
+                Method m = BukkitRegistrar.getRegisteredCommands().get(this.getName());
                 m.invoke(owningPlugin, sender, args );
             } catch (Exception ex) {
                 ex.printStackTrace();

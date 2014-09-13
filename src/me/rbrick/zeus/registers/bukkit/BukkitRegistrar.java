@@ -1,6 +1,5 @@
 package me.rbrick.zeus.registers.bukkit;
 
-import me.rbrick.zeus.Zeus;
 import me.rbrick.zeus.ZeusCommand;
 import me.rbrick.zeus.annotations.Command;
 import me.rbrick.zeus.exceptions.InvalidMethodException;
@@ -14,6 +13,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /*
@@ -21,6 +21,7 @@ import java.util.List;
  Will eventually move on too other APIs since Bukkit is probably not going to update to 1.8 :(
  */
 public class BukkitRegistrar implements Registrar {
+    static HashMap<String, Method> registeredCommands = new HashMap<String, Method>();
 
     @Override
     public void registerCommand(Class<?> clazz, String name, Plugin plugin) {
@@ -45,7 +46,7 @@ public class BukkitRegistrar implements Registrar {
                            throw new InvalidMethodException("Invalid parameter types!");
                        }
 
-                       Zeus.getRegisteredCommands().put(command.name(), m);
+                       registeredCommands.put(command.name(), m);
 
                        System.out.println(m.getDeclaringClass().getName());
 
@@ -92,7 +93,7 @@ public class BukkitRegistrar implements Registrar {
                         throw new InvalidMethodException("Invalid parameter types!");
                     }
 
-                    Zeus.getRegisteredCommands().put(command.name(), m);
+                    registeredCommands.put(command.name(), m);
 
                     System.out.println(m.getDeclaringClass().getName());
 
@@ -109,5 +110,9 @@ public class BukkitRegistrar implements Registrar {
                 }
             }
         }
+    }
+
+    public static HashMap<String, Method> getRegisteredCommands() {
+        return registeredCommands;
     }
 }
