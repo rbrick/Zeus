@@ -1,7 +1,0 @@
-name: Zeus
-version: 0.0.1
-main: me.rbrick.zeus.Zeus
-
-permission:
-  admin.stop:
-    default: false
