@@ -50,7 +50,7 @@ How to register command(s):
 
   If you want to register all methods(commands) in a class simply do:
     ```java
-    registrar.registerAll(<NameOfClass>.class, <Your plugin instance>);
+    registrar.registerAll(<NameOfClass>.class, <Your Plugin Instance>);
     ```
    and it will register every method that has the `@Command` annotation and the proper parameters.
 
