@@ -24,7 +24,7 @@ public class BukkitRegistrar implements Registrar {
     static HashMap<String, Method> registeredCommands = new HashMap<String, Method>();
 
     @Override
-    public void registerCommand(Class<?> clazz, String name, Plugin plugin) {
+    public void registerCommand(Class<?> clazz, String name, Object obj) {
         for(Method m : clazz.getMethods()) {
            if(m.isAnnotationPresent(Command.class)) {
                Command command = (Command) m.getAnnotation(Command.class);
@@ -72,7 +72,7 @@ public class BukkitRegistrar implements Registrar {
     }
 
     @Override
-    public void registerAll(Class<?> clazz, Plugin plugin) {
+    public void registerAll(Class<?> clazz, Object obj) {
         for(Method m : clazz.getMethods()) {
             if(m.isAnnotationPresent(Command.class)) {
                 Command command = (Command) m.getAnnotation(Command.class);
