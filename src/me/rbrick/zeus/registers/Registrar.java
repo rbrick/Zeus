@@ -10,7 +10,7 @@ public interface Registrar {
      * @param clazz
      * @param name
      */
-    void registerCommand(Class<?> clazz, String name, Plugin plugin);
+    void registerCommand(Class<?> clazz, String name, Object obj);
 
 
     /**
@@ -18,6 +18,6 @@ public interface Registrar {
      *
      * @param clazz
      */
-    void registerAll(Class<?> clazz, Plugin plugin);
+    void registerAll(Class<?> clazz, Object obj);
 
 }
