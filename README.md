@@ -56,7 +56,7 @@ How to register command(s):
 
  If you want to register just one command:
    ```java
-   registrar.register(<NameOfClass>.class, <NameOfCommand>, <Your plugin instance>);
+   registrar.registerCommand(<NameOfClass>.class, <NameOfCommand>, <Your plugin instance>);
    ```
  and it will only register that one command.
 
