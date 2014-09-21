@@ -43,6 +43,8 @@ public class BukkitRegistrar implements Registrar {
                         System.out.println("Successfully created new org.bukkit.command.Command.\nInjecting...");
 
 
+
+
                         // Confirm that the method is correct.
                         if(m.getParameterTypes() == null || m.getParameterTypes()[0] != CommandSender.class && m.getParameterTypes()[1] != String[].class) {
                             throw new InvalidMethodException("Invalid parameter types!");

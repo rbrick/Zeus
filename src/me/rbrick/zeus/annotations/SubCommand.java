@@ -8,4 +8,5 @@ public @interface SubCommand {
 
     String[] aliases() default {};
 
+
 }
