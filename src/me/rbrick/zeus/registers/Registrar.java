@@ -3,6 +3,7 @@ package me.rbrick.zeus.registers;
 
 public interface Registrar {
 
+// test
     /**
      * Registers only the command that is equal to the name.
      *
