@@ -1,5 +1,11 @@
 package me.rbrick.zeus.annotations;
 
+import javax.annotation.Nonnull;
+
 public @interface SubCommand {
-    // TODO
+
+   @Nonnull String parent() default "";
+
+    String[] aliases() default {};
+
 }
