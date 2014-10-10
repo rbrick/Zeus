@@ -49,14 +49,14 @@ How to register command(s):
     `registrar = new BukkitRegistrar();`
 
   If you want to register all methods(commands) in a class simply do:
-    ```java
-    registrar.registerAll(<NameOfClass>.class);
+    ```
+    registrar.registerAll(<NameOfClass>.class, <Instance of class annotation is in>); 
     ```
    and it will register every method that has the `@Command` annotation and the proper parameters.
 
  If you want to register just one command:
    ```java
-   registrar.register(<NameOfClass>.class, <NameOfCommand>);
+   registrar.registerCommand(<NameOfClass>.class, <NameOfCommand>, <Instance of class annotation is in>);
    ```
  and it will only register that one command.
 
