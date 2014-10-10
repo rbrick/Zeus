@@ -7,7 +7,7 @@
     <version>1.0-BETA</version>
     <packaging>jar</packaging>
 
-    <name>JSONConfig</name>
+    <name>Zeus</name>
     <url>http://www.rbrickis.me/projects?id=zeus</url>
 
     <repositories>
