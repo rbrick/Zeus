@@ -13,6 +13,4 @@ public @interface SubCommand {
    @Nonnull String parent() default "";
 
     String[] aliases() default {};
-
-
 }
