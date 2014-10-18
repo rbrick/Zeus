@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 /**
  * This code is copyrighted by rbrick and the BreakMC Network.
  */
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Command {
     @Nonnull String name() default "";
 
