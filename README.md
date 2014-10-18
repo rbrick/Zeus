@@ -1,6 +1,8 @@
 Zeus
 ====
 
+![Alt text](https://travis-ci.org/BreakMC-Development/Zeus.svg?branch=master "Build Status") 
+
 An annotation based command system inspired by @sk89q 's and @DSH105 's command systems projects.  
 
 ### Features
