@@ -22,8 +22,8 @@ public class BukkitRegistrar implements Registrar {
     static HashMap<String, Method> registeredCommands = new HashMap<String, Method>();
 
     @Override
-    public void registerCommand(Class<?> clazz, String name, Object obj) {
-        for(Method m : clazz.getMethods()) {
+    public void registerCommand(String name, Object obj) {
+        for(Method m : obj.getClass().getMethods()) {
             if(m.isAnnotationPresent(Command.class)) {
                 Command command = (Command) m.getAnnotation(Command.class);
                 if(command.name().equalsIgnoreCase(name)) {
@@ -40,8 +40,8 @@ public class BukkitRegistrar implements Registrar {
                         command1.setMaxArgs(command.maxArgs());
                         command1.setMinArgs(command.minArgs());
 
-                        System.out.println("Successfully created new org.bukkit.command.Command.\nInjecting...");
 
+                        System.out.println("Successfully created new org.bukkit.command.Command.\nInjecting...");
 
 
 
@@ -76,8 +76,8 @@ public class BukkitRegistrar implements Registrar {
     }
 
     @Override
-    public void registerAll(Class<?> clazz, Object obj) {
-        for(Method m : clazz.getMethods()) {
+    public void registerAll(Object obj) {
+        for(Method m : obj.getClass().getMethods()) {
             if(m.isAnnotationPresent(Command.class)) {
                 Command command = (Command) m.getAnnotation(Command.class);
                 // TODO Inject commands into Bukkit.
@@ -119,6 +119,17 @@ public class BukkitRegistrar implements Registrar {
                 }
             }
         }
+    }
+
+
+    @Override
+    public void registerAllSubCommands(Object obj) {
+
+    }
+
+    @Override
+    public void registerSubCommand(Object obj) {
+
     }
 
     public static HashMap<String, Method> getRegisteredCommands() {

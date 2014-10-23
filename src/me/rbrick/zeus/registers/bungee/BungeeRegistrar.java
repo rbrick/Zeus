@@ -8,12 +8,23 @@ import me.rbrick.zeus.registers.Registrar;
 public class BungeeRegistrar implements Registrar {
 
     @Override
-    public void registerAll(Class<?> clazz, Object obj) {
+    public void registerAll(Object obj) {
          // TODO:
     }
 
     @Override
-    public void registerCommand(Class<?> clazz, String name, Object obj) {
+    public void registerCommand(String name, Object obj) {
         // TODO:
+    }
+
+
+    @Override
+    public void registerAllSubCommands(Object obj) {
+
+    }
+
+    @Override
+    public void registerSubCommand(Object obj) {
+
     }
 }

@@ -25,14 +25,14 @@ public class ZeusCommand extends Command  {
             sender.sendMessage(getPermissionMessage());
             return true;
         }
-        if(!(maxArgs <= 0)) {
+        if(!(maxArgs < 0)) {
             if(args.length > maxArgs) {
                 sender.sendMessage(getUsage().replace("<command>", label));
                 return true;
             }
         }
 
-        if(!(minArgs <= 0)) {
+        if(!(minArgs < 0)) {
             if(args.length < minArgs) {
                 sender.sendMessage(getUsage().replace("<command>", label));
                 return true;
@@ -42,7 +42,6 @@ public class ZeusCommand extends Command  {
         try {
             Method m = BukkitRegistrar.getRegisteredCommands().get(this.getName());
             m.invoke(obj, sender, args );
-
 
         } catch (Exception ex) {
             ex.printStackTrace();
