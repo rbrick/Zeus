@@ -25,13 +25,13 @@ public interface Registrar {
      *
      * @param obj
      */
-     void registerAllSubCommands(Object obj);
+    // void registerAllSubCommands(Object obj);
 
     /**
      * Registers only one subcommand.
      *
      * @param obj
      */
-    void registerSubCommand(Object obj);
+  //  void registerSubCommand(Object obj);
 
 }

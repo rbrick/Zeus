@@ -14,6 +14,8 @@ public class ZeusCommand extends Command  {
     int maxArgs;
     int minArgs;
 
+    String[] args;
+
     public ZeusCommand(String name, String description, String usageMessage, List<String> aliases, Object obj) {
         super(name, description, usageMessage, aliases);
         this.obj = obj;
@@ -21,6 +23,7 @@ public class ZeusCommand extends Command  {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
+        this.args = args;
         if(!sender.hasPermission(getPermission()) && !getPermission().isEmpty()) {
             sender.sendMessage(getPermissionMessage());
             return true;
@@ -43,12 +46,12 @@ public class ZeusCommand extends Command  {
 
 
         try {
-            if(args.length != 0) {
-                if(hasSubCommand(args)) {
-                  BukkitRegistrar.getRegisteredZeusSubCommands().get(args[0]).execute(sender, fixArgs(args));
-                  return true;
-                }
-            }
+//            if(args.length != 0) {
+//                if(hasSubCommand(args)) {
+//                  BukkitRegistrar.getRegisteredZeusSubCommands().get(args[0]).execute(sender, fixArgs(args));
+//                  return true;
+//                }
+//            }
 
             Method m = BukkitRegistrar.getRegisteredCommands().get(this.getName());
             m.invoke(obj, sender, args);
@@ -81,9 +84,9 @@ public class ZeusCommand extends Command  {
         return minArgs;
     }
 
-    public boolean hasSubCommand(String[] args) {
-        return BukkitRegistrar.getRawRegisteredSubcommands().get(getName()).containsKey(args[0]);
-    }
+//    public boolean hasSubCommand(String[] args) {
+//        return BukkitRegistrar.getRawRegisteredSubcommands().get(getName()).containsKey(args[0]);
+//    }
 
     public String[] fixArgs(String[] args) {
         String[] subArgs = new String[args.length - 1];
@@ -93,5 +96,7 @@ public class ZeusCommand extends Command  {
         return subArgs;
     }
 
-
+    public String[] getArgs() {
+        return args;
+    }
 }

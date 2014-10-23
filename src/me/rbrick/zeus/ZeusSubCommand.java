@@ -1,10 +1,5 @@
 package me.rbrick.zeus;
 
-import me.rbrick.zeus.registers.bukkit.BukkitRegistrar;
-import org.bukkit.command.CommandSender;
-
-import java.lang.reflect.Method;
-
 /**
  * Created by Ryan on 10/22/2014
  * <p/>
@@ -26,12 +21,12 @@ public class ZeusSubCommand {
         this.instance = instance;
     }
 
-    public void execute(CommandSender sender, String[] args) {
-       try {
-          Method method = BukkitRegistrar.getRegisteredSubcommands().get(parent).get(this);
-          method.invoke(instance, sender, args);
-       } catch (Exception ex) {
-          ex.printStackTrace();
-       }
-    }
+//    public void execute(CommandSender sender, String[] args) {
+//       try {
+//          Method method = BukkitRegistrar.getRawRegisteredSubcommands().get(parent).get(name);
+//          method.invoke(instance, sender, args);
+//       } catch (Exception ex) {
+//          ex.printStackTrace();
+//       }
+//    }
 }

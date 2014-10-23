@@ -3,6 +3,7 @@ package me.rbrick.zeus.registers.bukkit;
 import me.rbrick.zeus.ZeusCommand;
 import me.rbrick.zeus.ZeusSubCommand;
 import me.rbrick.zeus.annotations.Command;
+import me.rbrick.zeus.annotations.SubCommand;
 import me.rbrick.zeus.exceptions.InvalidMethodException;
 import me.rbrick.zeus.registers.Registrar;
 import org.bukkit.Bukkit;
@@ -20,10 +21,20 @@ import java.util.List;
  * This code is copyrighted by rbrick and the BreakMC Network.
  */
 public class BukkitRegistrar implements Registrar {
+
+    // Registered Commands
     static HashMap<String, Method> registeredCommands = new HashMap<String, Method>();
-    static HashMap<String, HashMap<ZeusSubCommand, Method>> registeredSubcommands = new HashMap<String, HashMap<ZeusSubCommand, Method>>();
-    static HashMap<String, HashMap<String, Method>> rawRegisteredSubcommands = new HashMap<String, HashMap<String, Method>>();
-    static HashMap<String, ZeusSubCommand> registeredZeusSubCommands = new HashMap<String, ZeusSubCommand>();
+    static HashMap<String, ZeusCommand> registeredZeusCommands = new HashMap<String, ZeusCommand>();
+
+
+    // Parent commands paired with subcommands
+//    static HashMap<String, HashMap<String, ZeusSubCommand>> registeredSubcommands = new HashMap<String, HashMap<String, ZeusSubCommand>>();
+//    static HashMap<String, HashMap<String, Method>> rawRegisteredSubcommands = new HashMap<String, HashMap<String, Method>>();
+//
+//
+//    // SubCommands
+//    static HashMap<String, Method> realRegisteredSubcommands = new HashMap<String, Method>();
+//    static HashMap<String, ZeusSubCommand> registeredZeusSubCommands = new HashMap<String, ZeusSubCommand>();
 
     @Override
     public void registerCommand(String name, Object obj) {
@@ -55,6 +66,7 @@ public class BukkitRegistrar implements Registrar {
                         }
 
                         registeredCommands.put(command.name(), m);
+                        registeredZeusCommands.put(command.name(), command1);
 
                         System.out.println(m.getDeclaringClass().getName());
 
@@ -64,6 +76,7 @@ public class BukkitRegistrar implements Registrar {
                         CommandMap map = (CommandMap) field.get(Bukkit.getServer().getPluginManager());
 
                         map.register(command.name(), command1);
+
 
 
                         System.out.println("Successfully injected command '" + command.name() + "'.");
@@ -107,6 +120,7 @@ public class BukkitRegistrar implements Registrar {
                     }
 
                     registeredCommands.put(command.name(), m);
+                    registeredZeusCommands.put(command.name(), command1);
 
                     System.out.println(m.getDeclaringClass().getName());
 
@@ -125,30 +139,60 @@ public class BukkitRegistrar implements Registrar {
         }
     }
 
-
-    @Override
-    public void registerAllSubCommands(Object obj) {
-
-    }
-
-    @Override
-    public void registerSubCommand(Object obj) {
-
-    }
+//
+//    @Override
+//    public void registerAllSubCommands(Object obj) {
+//         for(Method m : obj.getClass().getMethods()) {
+//             if(m.isAnnotationPresent(SubCommand.class)) {
+//                 SubCommand sc = m.getAnnotation(SubCommand.class);
+//
+//                 if(!getRegisteredCommands().containsKey(sc.parent()) && !registeredZeusCommands.containsKey(sc.parent())) {
+//                     System.err.println("Bad parent!");
+//                     return;
+//                 }
+//                 try {
+//
+//                     if(m.getParameterTypes() == null || !m.getParameterTypes()[0].isAssignableFrom(CommandSender.class) && m.getParameterTypes()[1] != String[].class ) {
+//                         System.out.println("Bad parameters!");
+//                         return;
+//                     }
+//
+//                     ZeusSubCommand subCommand = new ZeusSubCommand(sc.parent(), sc.name(), sc.aliases(), registeredZeusCommands.get(sc.parent()).fixArgs(registeredZeusCommands.get(sc.parent()).getArgs()), obj);
+//
+//                     realRegisteredSubcommands.put(sc.name(), m);
+//
+//                     rawRegisteredSubcommands.put(sc.parent(), realRegisteredSubcommands);
+//
+//                     registeredZeusSubCommands.put(sc.name(), subCommand);
+//
+//                     registeredSubcommands.put(sc.parent(), registeredZeusSubCommands);
+//
+//                 } catch (Exception ex) {
+//                     ex.printStackTrace();
+//                 }
+//
+//             }
+//         }
+//    }
+//
+//    @Override
+//    public void registerSubCommand(Object obj) {
+//
+//    }
 
     public static HashMap<String, Method> getRegisteredCommands() {
         return registeredCommands;
     }
 
-    public static HashMap<String, HashMap<ZeusSubCommand, Method>> getRegisteredSubcommands() {
-        return registeredSubcommands;
-    }
-
-    public static HashMap<String, HashMap<String, Method>> getRawRegisteredSubcommands() {
-        return rawRegisteredSubcommands;
-    }
-
-    public static HashMap<String, ZeusSubCommand> getRegisteredZeusSubCommands() {
-        return registeredZeusSubCommands;
-    }
+//    public static HashMap<String, HashMap<String, ZeusSubCommand>> getRegisteredSubcommands() {
+//        return registeredSubcommands;
+//    }
+//
+//    public static HashMap<String, HashMap<String, Method>> getRawRegisteredSubcommands() {
+//        return rawRegisteredSubcommands;
+//    }
+//
+//    public static HashMap<String, ZeusSubCommand> getRegisteredZeusSubCommands() {
+//        return registeredZeusSubCommands;
+//    }
 }
