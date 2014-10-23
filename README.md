@@ -18,7 +18,7 @@ An annotation based command system inspired by @sk89q 's and @DSH105 's command 
 
 How to create a command:
  At the moment you must have your command method consist of two parameters.
- `CommandSender` and `String[]`, in that order. The arguments can be named anything of course.
+ `CommandSender`(Or any sub type) and `String[]`, in that order. The arguments can be named anything of course.
  It is recommended for the method to be void.
 
  To specify that method is a command, you must have the `@Command` annotation.
@@ -28,6 +28,8 @@ How to create a command:
    + `desc` Type: `String` About: The description of the command.
    + `usage` Type: `String` About: The usage of the command.
    + `permission` Type: `String` About: The permission used for the command.
+   + `minArgs` Type: `int` About: The minimum number of arguments for the command.
+   + `maxArgs` Type: `int` About: The maximum number of arguments for the command.
 
  Example(A custom /stop command for teh lawls):
  ```java
@@ -50,13 +52,13 @@ How to register command(s):
 
   If you want to register all methods(commands) in a class simply do:
     ```
-    registrar.registerAll(<NameOfClass>.class, <Instance of class annotation is in>); 
+    registrar.registerAll(<Instance of class annotation is in>); 
     ```
    and it will register every method that has the `@Command` annotation and the proper parameters.
 
  If you want to register just one command:
    ```java
-   registrar.registerCommand(<NameOfClass>.class, <NameOfCommand>, <Instance of class annotation is in>);
+   registrar.registerCommand(<NameOfCommand>, <Instance of class annotation is in>);
    ```
  and it will only register that one command.
 
