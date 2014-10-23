@@ -21,12 +21,4 @@ public class ZeusSubCommand {
         this.instance = instance;
     }
 
-//    public void execute(CommandSender sender, String[] args) {
-//       try {
-//          Method method = BukkitRegistrar.getRawRegisteredSubcommands().get(parent).get(name);
-//          method.invoke(instance, sender, args);
-//       } catch (Exception ex) {
-//          ex.printStackTrace();
-//       }
-//    }
 }
