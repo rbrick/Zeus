@@ -10,7 +10,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SubCommand {
 
-   @Nonnull String parent() default "";
+    @Nonnull String parent() default "";
+
+    @Nonnull String name() default "";
 
     String[] aliases() default {};
+
 }

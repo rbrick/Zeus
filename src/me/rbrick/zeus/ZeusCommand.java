@@ -39,9 +39,19 @@ public class ZeusCommand extends Command  {
             }
         }
 
+
+
+
         try {
+            if(args.length != 0) {
+                if(hasSubCommand(args)) {
+                  BukkitRegistrar.getRegisteredZeusSubCommands().get(args[0]).execute(sender, fixArgs(args));
+                  return true;
+                }
+            }
+
             Method m = BukkitRegistrar.getRegisteredCommands().get(this.getName());
-            m.invoke(obj, sender, args );
+            m.invoke(obj, sender, args);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -69,6 +79,18 @@ public class ZeusCommand extends Command  {
 
     public int getMinArgs() {
         return minArgs;
+    }
+
+    public boolean hasSubCommand(String[] args) {
+        return BukkitRegistrar.getRawRegisteredSubcommands().get(getName()).containsKey(args[0]);
+    }
+
+    public String[] fixArgs(String[] args) {
+        String[] subArgs = new String[args.length - 1];
+        for (int i = 1; i < args.length; i++) {
+            subArgs[i - 1] = args[i];
+        }
+        return subArgs;
     }
 
 

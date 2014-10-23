@@ -1,6 +1,7 @@
 package me.rbrick.zeus.registers.bukkit;
 
 import me.rbrick.zeus.ZeusCommand;
+import me.rbrick.zeus.ZeusSubCommand;
 import me.rbrick.zeus.annotations.Command;
 import me.rbrick.zeus.exceptions.InvalidMethodException;
 import me.rbrick.zeus.registers.Registrar;
@@ -20,6 +21,9 @@ import java.util.List;
  */
 public class BukkitRegistrar implements Registrar {
     static HashMap<String, Method> registeredCommands = new HashMap<String, Method>();
+    static HashMap<String, HashMap<ZeusSubCommand, Method>> registeredSubcommands = new HashMap<String, HashMap<ZeusSubCommand, Method>>();
+    static HashMap<String, HashMap<String, Method>> rawRegisteredSubcommands = new HashMap<String, HashMap<String, Method>>();
+    static HashMap<String, ZeusSubCommand> registeredZeusSubCommands = new HashMap<String, ZeusSubCommand>();
 
     @Override
     public void registerCommand(String name, Object obj) {
@@ -134,5 +138,17 @@ public class BukkitRegistrar implements Registrar {
 
     public static HashMap<String, Method> getRegisteredCommands() {
         return registeredCommands;
+    }
+
+    public static HashMap<String, HashMap<ZeusSubCommand, Method>> getRegisteredSubcommands() {
+        return registeredSubcommands;
+    }
+
+    public static HashMap<String, HashMap<String, Method>> getRawRegisteredSubcommands() {
+        return rawRegisteredSubcommands;
+    }
+
+    public static HashMap<String, ZeusSubCommand> getRegisteredZeusSubCommands() {
+        return registeredZeusSubCommands;
     }
 }
