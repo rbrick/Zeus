@@ -24,7 +24,7 @@ public class BungeeRegistrar implements Registrar {
     }
 
     @Override
-    public void registerSubCommand(Object obj) {
+    public void registerSubCommand(Object obj, String name) {
 
     }
 }
