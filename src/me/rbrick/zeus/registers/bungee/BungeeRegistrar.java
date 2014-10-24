@@ -2,9 +2,6 @@ package me.rbrick.zeus.registers.bungee;
 
 import me.rbrick.zeus.registers.Registrar;
 
-/**
- * This code is copyrighted by rbrick and the BreakMC Network.
- */
 public class BungeeRegistrar implements Registrar {
 
     @Override

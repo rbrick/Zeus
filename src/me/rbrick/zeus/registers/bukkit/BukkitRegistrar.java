@@ -17,9 +17,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * This code is copyrighted by rbrick and the BreakMC Network.
- */
 public class BukkitRegistrar implements Registrar {
 
     // Registered Commands
