@@ -17,4 +17,14 @@ public class BungeeRegistrar implements Registrar {
         // TODO:
     }
 
+
+    @Override
+    public void registerAllSubCommands(Object obj) {
+
+    }
+
+    @Override
+    public void registerSubCommand(Object obj) {
+
+    }
 }

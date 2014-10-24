@@ -26,6 +26,14 @@ public class BukkitRegistrar implements Registrar {
     static HashMap<String, Method> registeredCommands = new HashMap<String, Method>();
     static HashMap<String, ZeusCommand> registeredZeusCommands = new HashMap<String, ZeusCommand>();
 
+    // Parent commands paired with subcommands
+    static HashMap<String, HashMap<String, ZeusSubCommand>> registeredSubcommands = new HashMap<String, HashMap<String, ZeusSubCommand>>();
+    static HashMap<String, HashMap<String, Method>> rawRegisteredSubcommands = new HashMap<String, HashMap<String, Method>>();
+
+
+    // SubCommands
+    static HashMap<String, Method> realRegisteredSubcommands = new HashMap<String, Method>();
+    static HashMap<String, ZeusSubCommand> registeredZeusSubCommands = new HashMap<String, ZeusSubCommand>();
 
     @Override
     public void registerCommand(String name, Object obj) {
@@ -130,9 +138,93 @@ public class BukkitRegistrar implements Registrar {
         }
     }
 
+    @Override
+    public void registerAllSubCommands(Object obj) {
+         for(Method m : obj.getClass().getMethods()) {
+             if(m.isAnnotationPresent(SubCommand.class)) {
+                 SubCommand sc = m.getAnnotation(SubCommand.class);
+
+                 if(!getRegisteredCommands().containsKey(sc.parent()) && !registeredZeusCommands.containsKey(sc.parent())) {
+                     System.err.println("Bad parent!");
+                     return;
+                 }
+                 try {
+
+                     if(m.getParameterTypes() == null || !m.getParameterTypes()[0].isAssignableFrom(CommandSender.class) && m.getParameterTypes()[1] != String[].class ) {
+                         System.out.println("Bad parameters!");
+                         return;
+                     }
+
+                     ZeusSubCommand subCommand = new ZeusSubCommand(sc.parent(), sc.name(), sc.aliases(), obj);
+
+                     realRegisteredSubcommands.put(sc.name(), m);
+
+                     rawRegisteredSubcommands.put(sc.parent(), realRegisteredSubcommands);
+
+                     registeredZeusSubCommands.put(sc.name(), subCommand);
+
+                     registeredSubcommands.put(sc.parent(), registeredZeusSubCommands);
+
+                 } catch (Exception ex) {
+                     ex.printStackTrace();
+                 }
+
+             }
+         }
+    }
+
+    @Override
+    public void registerSubCommand(Object obj, String name) {
+        for(Method m : obj.getClass().getMethods()) {
+            if(m.isAnnotationPresent(SubCommand.class)) {
+                SubCommand sc = m.getAnnotation(SubCommand.class);
+
+              if(sc.name().equalsIgnoreCase(name)) {
+                  if (!getRegisteredCommands().containsKey(sc.parent()) && !registeredZeusCommands.containsKey(sc.parent())) {
+                      System.err.println("Bad parent!");
+                      return;
+                  }
+                  try {
+
+                      if (m.getParameterTypes() == null || !m.getParameterTypes()[0].isAssignableFrom(CommandSender.class) && m.getParameterTypes()[1] != String[].class) {
+                          System.out.println("Bad parameters!");
+                          return;
+                      }
+
+                      ZeusSubCommand subCommand = new ZeusSubCommand(sc.parent(), sc.name(), sc.aliases(), obj);
+
+                      realRegisteredSubcommands.put(sc.name(), m);
+
+                      rawRegisteredSubcommands.put(sc.parent(), realRegisteredSubcommands);
+
+                      registeredZeusSubCommands.put(sc.name(), subCommand);
+
+                      registeredSubcommands.put(sc.parent(), registeredZeusSubCommands);
+
+                  } catch (Exception ex) {
+                      ex.printStackTrace();
+                  }
+              }
+            }
+        }
+    }
+
 
     public static HashMap<String, Method> getRegisteredCommands() {
         return registeredCommands;
+    }
+
+
+    public static HashMap<String, HashMap<String, ZeusSubCommand>> getRegisteredSubcommands() {
+        return registeredSubcommands;
+    }
+
+    public static HashMap<String, HashMap<String, Method>> getRawRegisteredSubcommands() {
+        return rawRegisteredSubcommands;
+    }
+
+    public static HashMap<String, ZeusSubCommand> getRegisteredZeusSubCommands() {
+        return registeredZeusSubCommands;
     }
 
 }
