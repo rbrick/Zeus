@@ -10,14 +10,14 @@ import java.lang.reflect.Method;
  * <p/>
  * Project: Zeus
  */
-public class ZeusSubCommand {
+public class BukkitZeusSubCommand {
 
    String parent;
    String name;
    String[] aliases;
    Object instance;
 
-    public ZeusSubCommand(String parent,String name, String[] aliases, Object instance) {
+    public BukkitZeusSubCommand(String parent, String name, String[] aliases, Object instance) {
         this.name = name;
         this.parent = parent;
         this.aliases = aliases;

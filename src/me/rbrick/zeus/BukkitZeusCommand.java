@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import java.lang.reflect.Method;
 import java.util.List;
 
-public class ZeusCommand extends Command  {
+public class BukkitZeusCommand extends Command  {
 
     Object obj;
 
@@ -16,7 +16,7 @@ public class ZeusCommand extends Command  {
 
     String[] args;
 
-    public ZeusCommand(String name, String description, String usageMessage, List<String> aliases, Object obj) {
+    public BukkitZeusCommand(String name, String description, String usageMessage, List<String> aliases, Object obj) {
         super(name, description, usageMessage, aliases);
         this.obj = obj;
     }

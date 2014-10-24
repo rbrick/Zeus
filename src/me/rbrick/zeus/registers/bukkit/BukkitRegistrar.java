@@ -1,7 +1,7 @@
 package me.rbrick.zeus.registers.bukkit;
 
-import me.rbrick.zeus.ZeusCommand;
-import me.rbrick.zeus.ZeusSubCommand;
+import me.rbrick.zeus.BukkitZeusCommand;
+import me.rbrick.zeus.BukkitZeusSubCommand;
 import me.rbrick.zeus.annotations.Command;
 import me.rbrick.zeus.annotations.SubCommand;
 import me.rbrick.zeus.exceptions.InvalidMethodException;
@@ -24,16 +24,16 @@ public class BukkitRegistrar implements Registrar {
 
     // Registered Commands
     static HashMap<String, Method> registeredCommands = new HashMap<String, Method>();
-    static HashMap<String, ZeusCommand> registeredZeusCommands = new HashMap<String, ZeusCommand>();
+    static HashMap<String, BukkitZeusCommand> registeredZeusCommands = new HashMap<String, BukkitZeusCommand>();
 
     // Parent commands paired with subcommands
-    static HashMap<String, HashMap<String, ZeusSubCommand>> registeredSubcommands = new HashMap<String, HashMap<String, ZeusSubCommand>>();
+    static HashMap<String, HashMap<String, BukkitZeusSubCommand>> registeredSubcommands = new HashMap<String, HashMap<String, BukkitZeusSubCommand>>();
     static HashMap<String, HashMap<String, Method>> rawRegisteredSubcommands = new HashMap<String, HashMap<String, Method>>();
 
 
     // SubCommands
     static HashMap<String, Method> realRegisteredSubcommands = new HashMap<String, Method>();
-    static HashMap<String, ZeusSubCommand> registeredZeusSubCommands = new HashMap<String, ZeusSubCommand>();
+    static HashMap<String, BukkitZeusSubCommand> registeredZeusSubCommands = new HashMap<String, BukkitZeusSubCommand>();
 
     @Override
     public void registerCommand(String name, Object obj) {
@@ -43,11 +43,11 @@ public class BukkitRegistrar implements Registrar {
                 if(command.name().equalsIgnoreCase(name)) {
                     // TODO Inject commands into Bukkit.
                     try {
-                        Constructor<?> commandConstructor =  ZeusCommand.class.getDeclaredConstructor(String.class, String.class, String.class, List.class, Object.class);
+                        Constructor<?> commandConstructor =  BukkitZeusCommand.class.getDeclaredConstructor(String.class, String.class, String.class, List.class, Object.class);
                         commandConstructor.setAccessible(true);
                         System.out.println("Successfully hooked into org.bukkit.command.Command");
 
-                        ZeusCommand command1 = (ZeusCommand) commandConstructor.newInstance(command.name(), command.desc(), command.usage(), Arrays.asList(command.aliases()), obj);
+                        BukkitZeusCommand command1 = (BukkitZeusCommand) commandConstructor.newInstance(command.name(), command.desc(), command.usage(), Arrays.asList(command.aliases()), obj);
 
                         command1.setPermission(command.permission());
                         command1.setPermissionMessage((command.permissionMsg().isEmpty() ? command1.getPermissionMessage() : command.permissionMsg()));
@@ -98,11 +98,11 @@ public class BukkitRegistrar implements Registrar {
                 Command command = (Command) m.getAnnotation(Command.class);
                 // TODO Inject commands into Bukkit.
                 try {
-                    Constructor<?> commandConstructor =  ZeusCommand.class.getDeclaredConstructor(String.class, String.class, String.class, List.class, Object.class);
+                    Constructor<?> commandConstructor =  BukkitZeusCommand.class.getDeclaredConstructor(String.class, String.class, String.class, List.class, Object.class);
                     commandConstructor.setAccessible(true);
                     System.out.println("Successfully hooked into org.bukkit.command.Command");
 
-                    ZeusCommand command1 = (ZeusCommand) commandConstructor.newInstance(command.name(), command.desc(), command.usage(), Arrays.asList(command.aliases()), obj);
+                    BukkitZeusCommand command1 = (BukkitZeusCommand) commandConstructor.newInstance(command.name(), command.desc(), command.usage(), Arrays.asList(command.aliases()), obj);
 
                     command1.setPermission(command.permission());
 
@@ -155,7 +155,7 @@ public class BukkitRegistrar implements Registrar {
                          return;
                      }
 
-                     ZeusSubCommand subCommand = new ZeusSubCommand(sc.parent(), sc.name(), sc.aliases(), obj);
+                     BukkitZeusSubCommand subCommand = new BukkitZeusSubCommand(sc.parent(), sc.name(), sc.aliases(), obj);
 
                      realRegisteredSubcommands.put(sc.name(), m);
 
@@ -191,7 +191,7 @@ public class BukkitRegistrar implements Registrar {
                           return;
                       }
 
-                      ZeusSubCommand subCommand = new ZeusSubCommand(sc.parent(), sc.name(), sc.aliases(), obj);
+                      BukkitZeusSubCommand subCommand = new BukkitZeusSubCommand(sc.parent(), sc.name(), sc.aliases(), obj);
 
                       realRegisteredSubcommands.put(sc.name(), m);
 
@@ -215,7 +215,7 @@ public class BukkitRegistrar implements Registrar {
     }
 
 
-    public static HashMap<String, HashMap<String, ZeusSubCommand>> getRegisteredSubcommands() {
+    public static HashMap<String, HashMap<String, BukkitZeusSubCommand>> getRegisteredSubcommands() {
         return registeredSubcommands;
     }
 
@@ -223,7 +223,7 @@ public class BukkitRegistrar implements Registrar {
         return rawRegisteredSubcommands;
     }
 
-    public static HashMap<String, ZeusSubCommand> getRegisteredZeusSubCommands() {
+    public static HashMap<String, BukkitZeusSubCommand> getRegisteredZeusSubCommands() {
         return registeredZeusSubCommands;
     }
 
